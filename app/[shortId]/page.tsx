@@ -47,10 +47,10 @@ export default function RedirectPage() {
                     <Card className="shadow-lg">
                         <CardContent className="pt-6">
                             <div className="text-center space-y-4">
-                                <Loader2 className="h-12 w-12 animate-spin text-blue-600 mx-auto" />
+                                <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
                                 <div>
                                     <h2 className="text-lg font-semibold">Verificando URL</h2>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    <p className="text-sm text-muted-foreground">
                                         Aguarde um momento...
                                     </p>
                                 </div>
@@ -105,10 +105,10 @@ export default function RedirectPage() {
                 {status === 'error' && (
                     <Card className="shadow-lg">
                         <CardHeader className="text-center">
-                            <div className="mx-auto mb-4 p-3 bg-red-100 dark:bg-red-900 rounded-full w-fit">
-                                <AlertCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
+                            <div className="mx-auto mb-4 p-3 bg-destructive/10 rounded-full w-fit">
+                                <AlertCircle className="h-6 w-6 text-destructive" />
                             </div>
-                            <CardTitle className="text-red-600 dark:text-red-400">
+                            <CardTitle className="text-destructive">
                                 URL não encontrada
                             </CardTitle>
                             <CardDescription>
@@ -124,10 +124,10 @@ export default function RedirectPage() {
                             </Alert>
                             
                             <div className="space-y-2">
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                <p className="text-sm text-muted-foreground">
                                     Possíveis causas:
                                 </p>
-                                <ul className="text-sm text-gray-600 dark:text-gray-400 list-disc list-inside space-y-1">
+                                <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
                                     <li>Link digitado incorretamente</li>
                                     <li>Link expirado ou removido</li>
                                     <li>Erro temporário do sistema</li>

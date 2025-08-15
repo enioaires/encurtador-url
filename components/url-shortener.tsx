@@ -2,7 +2,12 @@
 
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { Copy, Link, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Label } from '@/components/ui/label'
+import { Copy, Link, CheckCircle, AlertCircle, Loader2, ExternalLink } from 'lucide-react'
 
 export function UrlShortener() {
   const [url, setUrl] = useState('')
@@ -22,7 +27,7 @@ export function UrlShortener() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!url.trim()) {
       setError('Por favor, insira uma URL')
       return
@@ -35,7 +40,7 @@ export function UrlShortener() {
 
     setLoading(true)
     setError('')
-    
+
     try {
       const response = await fetch('/api/shorten', {
         method: 'POST',
@@ -52,13 +57,13 @@ export function UrlShortener() {
 
       const responseData = await response.json()
       console.log('Response data:', responseData) // Debug log
-      
+
       // A API retorna os dados dentro de um objeto 'data'
       const data = responseData.data || responseData
-      
+
       // A API já retorna a shortUrl completa
       const newShortUrl = data.shortUrl || data.shortId || data.url
-      
+
       if (newShortUrl) {
         setShortUrl(newShortUrl)
         toast.success('URL encurtada com sucesso!')
@@ -95,115 +100,110 @@ export function UrlShortener() {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-900 dark:text-white mb-2">
+    <Card className="shadow-lg">
+      <CardHeader>
+        <CardTitle className="text-xl flex items-center gap-2">
           <Link className="h-5 w-5" />
           Encurtar URL
-        </h2>
-        <p className="text-gray-600 dark:text-gray-300 text-sm">
+        </CardTitle>
+        <CardDescription>
           Cole sua URL longa abaixo para gerar um link curto
-        </p>
-      </div>
-
-      {!shortUrl ? (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <input
-              type="url"
-              placeholder="https://exemplo.com/sua-url-muito-longa"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-              disabled={loading}
-            />
-            {error && (
-              <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
-                <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
-                <span className="text-sm text-red-600 dark:text-red-400">{error}</span>
-              </div>
-            )}
-          </div>
-          
-          <button 
-            type="submit" 
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center gap-2"
-            disabled={loading || !url.trim()}
-          >
-            {loading ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Encurtando...
-              </>
-            ) : (
-              'Encurtar URL'
-            )}
-          </button>
-        </form>
-      ) : (
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md">
-            <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
-            <span className="text-sm text-green-600 dark:text-green-400">
-              URL encurtada com sucesso!
-            </span>
-          </div>
-          
-          <div className="space-y-3">
-            <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                URL Original:
-              </label>
-              <p className="text-sm text-gray-600 dark:text-gray-400 break-all bg-gray-50 dark:bg-gray-800 p-2 rounded mt-1">
-                {url}
-              </p>
-            </div>
-            
-            <div>
-              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                URL Encurtada:
-              </label>
-              <div className="flex items-center space-x-2 mt-1">
-                <input
-                  value={shortUrl}
-                  readOnly
-                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-white"
-                />
-                <button
-                  onClick={copyToClipboard}
-                  className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                >
-                  {copied ? (
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                  ) : (
-                    <Copy className="h-4 w-4" />
-                  )}
-                </button>
-              </div>
-              {copied && (
-                <p className="text-sm text-green-600 mt-1">
-                  Copiado para a área de transferência!
-                </p>
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {!shortUrl ? (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Input
+                type="url"
+                placeholder="https://exemplo.com/sua-url-muito-longa"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                disabled={loading}
+              />
+              {error && (
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
               )}
             </div>
-          </div>
-          
-          <div className="flex space-x-2">
-            <button 
+
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={loading || !url.trim()}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Encurtando...
+                </>
+              ) : (
+                'Encurtar URL'
+              )}
+            </Button>
+          </form>
+        ) : (
+          <div className="space-y-4">
+            <Alert>
+              <CheckCircle className="h-4 w-4" />
+              <AlertDescription>
+                URL encurtada com sucesso!
+              </AlertDescription>
+            </Alert>
+
+            <div className="space-y-3">
+              <div>
+                <Label className="text-sm font-medium">
+                  URL Original:
+                </Label>
+                <p className="text-sm text-muted-foreground break-all bg-muted p-2 rounded mt-1">
+                  {url}
+                </p>
+              </div>
+
+              <div>
+                <Label className="text-sm font-medium">
+                  URL Encurtada:
+                </Label>
+                <div className="flex items-center space-x-2 mt-1">
+                  <Input
+                    value={shortUrl}
+                    readOnly
+                    className="flex-1"
+                  />
+                  <Button
+                    onClick={copyToClipboard}
+                    variant="outline"
+                    size="sm"
+                    className="shrink-0"
+                  >
+                    {copied ? (
+                      <CheckCircle className="h-4 w-4 text-green-600" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+                {copied && (
+                  <p className="text-sm text-green-600 mt-1">
+                    Copiado para a área de transferência!
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <Button
               onClick={resetForm}
-              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-gray-300"
+              variant="outline"
+              className="w-full"
             >
               Nova URL
-            </button>
-            <button 
-              onClick={() => window.open(shortUrl, '_blank')}
-              className="px-4 py-2 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors text-gray-700 dark:text-gray-300"
-            >
-              Testar
-            </button>
+            </Button>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </CardContent>
+    </Card>
   )
 }

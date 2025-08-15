@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { AlertCircle, Home, Link } from 'lucide-react'
+import { AlertCircle, Home } from 'lucide-react'
 
 export default function NotFound() {
   return (
@@ -9,10 +9,10 @@ export default function NotFound() {
       <div className="w-full max-w-md">
         <Card className="shadow-lg">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 p-3 bg-red-100 dark:bg-red-900 rounded-full w-fit">
-              <AlertCircle className="h-8 w-8 text-red-600 dark:text-red-400" />
+            <div className="mx-auto mb-4 p-3 bg-destructive/10 rounded-full w-fit">
+              <AlertCircle className="h-8 w-8 text-destructive" />
             </div>
-            <CardTitle className="text-2xl text-red-600 dark:text-red-400">
+            <CardTitle className="text-2xl text-destructive">
               Página não encontrada
             </CardTitle>
             <CardDescription>
@@ -21,8 +21,8 @@ export default function NotFound() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="text-center space-y-2">
-              <h1 className="text-6xl font-bold text-gray-300 dark:text-gray-600">404</h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <h1 className="text-6xl font-bold text-muted-foreground/50">404</h1>
+              <p className="text-sm text-muted-foreground">
                 Verifique se o endereço foi digitado corretamente
               </p>
             </div>
