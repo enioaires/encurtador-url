@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Label } from '@/components/ui/label'
-import { Copy, Link, CheckCircle, AlertCircle, Loader2, ExternalLink } from 'lucide-react'
+import { Copy, Link, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 
 export function UrlShortener() {
   const [url, setUrl] = useState('')
