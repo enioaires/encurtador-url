@@ -1,10 +1,7 @@
+import { UrlService } from '@/lib/services/urlService'
 import { Hono } from 'hono'
-import { handle } from 'hono/vercel'
-import { UrlService } from '../../../lib/services/urlService'
 
-const app = new Hono().basePath('/api')
-
-app.post('/shorten', async (c) => {
+const app = new Hono().post('/', async (c) => {
   try {
     const body = await c.req.json()
     const { url } = body
@@ -41,4 +38,4 @@ app.post('/shorten', async (c) => {
   }
 })
 
-export const POST = handle(app)
+export default app
